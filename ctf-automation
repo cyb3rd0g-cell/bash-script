@@ -1,0 +1,38 @@
+#!/bin/bash
+
+PS3="CHOOSE TOOL NAME:"
+echo "Enter IP address:" $ip
+read ip
+select tool in nmap gobuster
+do
+	if [ $tool = "nmap" ]
+	then
+		echo "1.Normal scan"
+		echo "2.Host discovery"
+		echo "3.Fast Scan"
+		read type1
+		case "$type1" in
+			"1")  nmap -A -sV -Pn -sC -T4 $ip 
+			 ;;
+			"2")  echo "enter ur gateway address:";read gateway;nmap -sn $gateway/24
+			 ;;
+			"3") nmap -F $ip
+	    esac
+	else [ $tool = "gobuster" ]
+		echo " 1.Common" 
+		echo " 2.Medium"
+		echo " 3.Big"
+		echo "Enum method:" $type
+		read type
+		case "$type" in
+			"1") gobuster dir -u http://$ip/ -w /usr/share/wordlists/dirb/common.txt
+			;;
+			"2") gobuster dir -u http://$ip/ -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt
+			 ;;
+			"3") gobuster dir -u http://$ip/ -w /usr/share/wordlists/dirb/big.txt
+			 ;;
+
+		esac
+		exit 0
+	fi
+done
