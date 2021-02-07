@@ -14,7 +14,7 @@ do
 		case "$type1" in
 			"1")  nmap -A -sV -Pn -sC -T4 $ip 
 			 ;;
-			"2")  echo "enter ur gateway address:";read gateway;nmap -sn $gateway/24
+			"2")  echo "Host Discovery started ----> ";nmap -sn $ip/24
 			 ;;
 			"3") nmap -F $ip
 	    esac
